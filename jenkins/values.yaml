@@ -11,12 +11,12 @@ controller:
   nodePort: 9090
 
   # It seems that jenkins-plugin-cli 2.9.0 does not install plugin dependencies properly.
-  # So we add them explicitly here, to avoid exception such as 
+  # So we add them explicitly here, to avoid exception such as
   #  Failed to load: Matrix Project Plugin (1.18)
   # Background: When debugging, the following command
   #  jenkins-plugin-cli --war "/usr/share/jenkins/jenkins.war" --plugins matrix-project:1.18 --verbose
   # returns: matrix-project has no dependencies
-  # But the following command: 
+  # But the following command:
   # jenkins-plugin-cli --war "/usr/share/jenkins/jenkins.war" --plugins matrix-project:1.18 --verbose
   # Returns: matrix-project depends on: junit 1.50 script-security 1.77
   # Workaround: Install the plugins that cause these problems explicitly
@@ -112,7 +112,7 @@ agent:
   # https://github.com/cloudogu/gitops-playground/blob/61e033/scripts/apply.sh#L211-L235
   # We mount the same PATH as a hostPath. See below.
   # On Multi Node Clusters this leads to the requirement that Jenkins controller and agents run on the same host
-  # We realize this using nodeSelectors 
+  # We realize this using nodeSelectors
   workingDir: "/tmp/gitops-playground-jenkins-agent"
   runAsUser: 1000
   runAsGroup: 133
