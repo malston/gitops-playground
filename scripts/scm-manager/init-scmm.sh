@@ -243,6 +243,9 @@ function scmmHelmSettingsForRemoteCluster() {
 }
 
 function waitForScmManager() {
+  if [[ -n $SCMM_HOST ]]; then
+    SCMM_HOST="127.0.0.1:9091/scm"
+  fi
   echo -n "Waiting for Scmm to become available at ${SCMM_PROTOCOL}://${SCMM_HOST}/api/v2"
 
   HTTP_CODE="0"
