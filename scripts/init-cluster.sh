@@ -54,7 +54,21 @@ function createCluster() {
     # Persists the cache of Jenkins agents pods for faster builds
     '-v /tmp:/tmp@server[0]'
     # Pin k8s version via k3s image
-    "--image=$K3S_VERSION" 
+    "--image=$K3S_VERSION"
+    # Solution for windows and mac TODO can we get them from a list?
+    '--port 8999:8999@loadbalancer[0]'
+    '--port 9000:9000@loadbalancer[0]'
+    '--port 9001:9001@loadbalancer[0]'
+    '--port 9002:9002@loadbalancer[0]'
+    '--port 9003:9003@loadbalancer[0]'
+    '--port 9010:9010@loadbalancer[0]'
+    '--port 9011:9011@loadbalancer[0]'
+    '--port 9020:9020@loadbalancer[0]'
+    '--port 9021:9021@loadbalancer[0]'
+    '--port 9090:9090@loadbalancer[0]'
+    '--port 9091:9091@loadbalancer[0]'
+    # '--no-hostip'
+    # '--no-lb'
   )
 
   local isUsingArbitraryRegistryPort=false
@@ -129,8 +143,8 @@ readParameters() {
   eval set -- "$COMMANDS"
 
   CLUSTER_NAME=gitops-playground
-  BIND_LOCALHOST=true
-  TRACE=false
+  BIND_LOCALHOST=false
+  TRACE=true
 
   while true; do
     case "$1" in

@@ -11,8 +11,7 @@ function createJob() {
 
   # shellcheck disable=SC2016
   # we don't want to expand these variables in single quotes
-  JOB_CONFIG=$(env -i \
-               SCMM_NAMESPACE_JOB_SERVER_URL="${2}" \
+  JOB_CONFIG=$(SCMM_NAMESPACE_JOB_SERVER_URL="${2}" \
                SCMM_NAMESPACE_JOB_NAMESPACE="${3}" \
                SCMM_NAMESPACE_JOB_CREDENTIALS_ID="${4}" \
                envsubst '${SCMM_NAMESPACE_JOB_SERVER_URL},
@@ -41,7 +40,7 @@ function createCredentials() {
 
   # shellcheck disable=SC2016
   # we don't want to expand these variables in single quotes
-  CRED_CONFIG=$(env -i CREDENTIALS_ID="${1}" \
+  CRED_CONFIG=$(CREDENTIALS_ID="${1}" \
                USERNAME="${2}" \
                PASSWORD="${3}" \
                DESCRIPTION="${4}" \
@@ -140,7 +139,7 @@ function setGlobalProperty() {
 
   # shellcheck disable=SC2016
   # we don't want to expand these variables in single quotes
-  GROOVY_SCRIPT=$(env -i KEY="${1}" \
+  GROOVY_SCRIPT=$(KEY="${1}" \
                VALUE="${2}" \
                envsubst '${KEY},
                          ${VALUE}' \
