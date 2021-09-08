@@ -92,7 +92,8 @@ function configureJenkins() {
 
   waitForJenkins
 
-  installPlugin "docker-workflow" "1.26"
+  installPlugin "docker-commons" "1.17"
+  installPlugin "docker-workflow" "1.25"
   installPlugin "docker-plugin" "1.2.2"
   installPlugin "pipeline-utility-steps" "2.8.0"
   installPlugin "junit" "1.51"
