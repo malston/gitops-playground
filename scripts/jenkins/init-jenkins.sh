@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -o errexit -o nounset -o pipefail
+set -o errexit -o pipefail
 # set -x
 
 if [[ -z ${PLAYGROUND_DIR+x} ]]; then

@@ -7,7 +7,7 @@ K3D_VERSION=4.4.7
 K8S_VERSION=1.21.2
 K3S_VERSION="rancher/k3s:v${K8S_VERSION}-k3s1"
 
-set -o errexit -o nounset -o pipefail
+set -o errexit -o pipefail
 
 function main() {
   readParameters "$@"

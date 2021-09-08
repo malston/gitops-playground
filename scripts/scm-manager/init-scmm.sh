@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -o errexit -o nounset -o pipefail
+set -o errexit -o pipefail
 
 SCMM_USER=scmadmin
 SCMM_PWD=scmadmin
