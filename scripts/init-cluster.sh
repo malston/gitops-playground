@@ -96,8 +96,8 @@ function createCluster() {
     fi
   fi
 
-  k3d cluster create ${CLUSTER_NAME} ${K3D_ARGS[*]}
-  
+  k3d cluster create ${CLUSTER_NAME} ${K3D_ARGS[*]} --servers 1 --agents 1
+
   if [[ ${isUsingArbitraryRegistryPort} == 'true' ]]; then
     local registryPort
     registryPort=$(docker inspect \
