@@ -55,6 +55,7 @@ function queryDockerGroupOfJenkinsNode() {
     sleep 1
   done
 
+  # should this be staff?
   kubectl exec tmp-docker-gid-grepper -- cat /etc/group | grep docker | cut -d: -f3
 
   # This call might block some (unnecessary) seconds so move to background
