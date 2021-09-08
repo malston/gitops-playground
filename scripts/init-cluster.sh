@@ -121,13 +121,13 @@ function confirm() {
 }
 
 readParameters() {
-  COMMANDS=$(getopt \
-    -o hx \
-    --long help,cluster-name:,bind-localhost:,trace \
-    -- "$@")
-  
-  eval set -- "$COMMANDS"
-  
+  # COMMANDS=$(getopt \
+  #   -o hx \
+  #   --long help,cluster-name:,bind-localhost:,trace \
+  #   -- "$@")
+
+  # eval set -- "$COMMANDS"
+
   CLUSTER_NAME=gitops-playground
   BIND_LOCALHOST=true
   TRACE=false

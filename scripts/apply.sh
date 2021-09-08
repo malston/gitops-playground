@@ -804,18 +804,18 @@ function printParameters() {
 }
 
 readParameters() {
-  COMMANDS=$(getopt \
-    -o hdxyc \
-    --long help,fluxv1,fluxv2,argocd,debug,remote,username:,password:,jenkins-url:,jenkins-username:,jenkins-password:,registry-url:,registry-path:,registry-username:,registry-password:,internal-registry-port:,scmm-url:,scmm-username:,scmm-password:,kubectl-image:,helm-image:,kubeval-image:,helmkubeval-image:,yamllint-image:,trace,insecure,yes,skip-helm-update,argocd-config-only: \
-    -- "$@")
-  
+  # COMMANDS=$(getopt \
+  #   -o hdxyc \
+  #   --long help,fluxv1,fluxv2,argocd,debug,remote,username:,password:,jenkins-url:,jenkins-username:,jenkins-password:,registry-url:,registry-path:,registry-username:,registry-password:,internal-registry-port:,scmm-url:,scmm-username:,scmm-password:,kubectl-image:,helm-image:,kubeval-image:,helmkubeval-image:,yamllint-image:,trace,insecure,yes,skip-helm-update,argocd-config-only: \
+  #   -- "$@")
+
   if [ $? != 0 ]; then
     echo "Terminating..." >&2
     exit 1
   fi
-  
-  eval set -- "$COMMANDS"
-  
+
+  # eval set -- "$COMMANDS"
+
   DEBUG=false
   INSTALL_ALL_MODULES=true
   INSTALL_FLUXV1=false
