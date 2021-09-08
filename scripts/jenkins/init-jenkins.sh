@@ -28,7 +28,7 @@ function deployLocalJenkins() {
   # Mark the first node for Jenkins and agents. See jenkins/values.yamls "agent.workingDir" for details.
   # Remove first (in case new nodes were added)
   kubectl label --all nodes node- >/dev/null
-  kubectl label $(kubectl get node -o name | sort | head -n 1) node=jenkins
+  kubectl label $(kubectl get node -o name | sort | tail -n 1) node=jenkins
 
   createSecret jenkins-credentials --from-literal=jenkins-admin-user=$SET_USERNAME --from-literal=jenkins-admin-password=$SET_PASSWORD -n default
 
