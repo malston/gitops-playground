@@ -11,9 +11,9 @@ set -o errexit -o nounset -o pipefail
 
 function main() {
   readParameters "$@"
-  
+
   [[ $TRACE == true ]] && set -x;
-  
+
   # Install k3d if necessary
   if ! command -v k3d >/dev/null 2>&1; then
     installK3d
@@ -54,7 +54,7 @@ function createCluster() {
     # Persists the cache of Jenkins agents pods for faster builds
     '-v /tmp:/tmp@server[0]'
     # Pin k8s version via k3s image
-    "--image=$K3S_VERSION" 
+    "--image=$K3S_VERSION"
   )
 
   local isUsingArbitraryRegistryPort=false
@@ -63,7 +63,7 @@ function createCluster() {
       '--network=host'
     )
   else
-    # Internal Docker registry must be on localhost. Otherwise docker will use HTTPS, leading to errors on docker push 
+    # Internal Docker registry must be on localhost. Otherwise docker will use HTTPS, leading to errors on docker push
     # in the example application's Jenkins Jobs.
     # If available, use default port for playground registry, because no parameter is required when applying
     if command -v netstat >/dev/null 2>&1 && ! netstat -an | grep 30000 | grep LISTEN >/dev/null 2>&1; then
@@ -81,7 +81,7 @@ function createCluster() {
   fi
 
   k3d cluster create ${CLUSTER_NAME} ${K3D_ARGS[*]}
-  
+
   if [[ ${isUsingArbitraryRegistryPort} == 'true' ]]; then
     local registryPort
     registryPort=$(docker inspect \
@@ -108,7 +108,7 @@ function confirm() {
   # shellcheck disable=SC2145
   # - the line break between args is intended here!
   printf "%s\n" "${@:-Are you sure? [y/N]} "
-  
+
   read -r response
   case "$response" in
   [yY][eE][sS] | [yY])

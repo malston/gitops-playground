@@ -38,15 +38,15 @@ GITOPS_BUILD_LIB_REPO=${GITOPS_BUILD_LIB_REPO:-'https://github.com/cloudogu/gito
 CES_BUILD_LIB_REPO=${CES_BUILD_LIB_REPO:-'https://github.com/cloudogu/ces-build-lib.git'}
 
 function main() {
-  
+
   readParameters "$@"
-  
+
   if [[ $ASSUME_YES == false ]]; then
     confirm "Applying gitops playground to kubernetes cluster: '$(kubectl config current-context)'." 'Continue? y/n [n]' ||
       # Return error here to avoid get correct state when used with kubectl
       exit 1
   fi
-  
+
   if [[ $TRACE == true ]]; then
     set -x
     # Trace without debug does not make to much sense, as the spinner spams the output
@@ -59,7 +59,7 @@ function main() {
   else
     RUNNING_INSIDE_K8S=false
   fi
-  
+
   CLUSTER_BIND_ADDRESS=$(findClusterBindAddress)
 
   if [[ $INSECURE == true ]]; then
@@ -96,9 +96,9 @@ function main() {
     if [[ -n "${INTERNAL_REGISTRY_PORT}" ]]; then
       registryPort="${INTERNAL_REGISTRY_PORT}"
     fi
-    # Internal Docker registry must be on localhost. Otherwise docker will use HTTPS, leading to errors on docker push 
+    # Internal Docker registry must be on localhost. Otherwise docker will use HTTPS, leading to errors on docker push
     # in the example application's Jenkins Jobs.
-    # Both setting up HTTPS or allowing insecure registry via daemon.json makes the playground difficult to use. 
+    # Both setting up HTTPS or allowing insecure registry via daemon.json makes the playground difficult to use.
     # So, always use localhost.
     # Allow overriding the port, in case multiple playground instance run on a single host in different k3d clusters.
     REGISTRY_URL="localhost:${registryPort}"
@@ -140,7 +140,7 @@ function main() {
 function findClusterBindAddress() {
   local potentialClusterBindAddress
   local localAddress
-  
+
   # Use an internal IP to contact Jenkins and SCMM
   # For k3d this is either the host's IP or the IP address of the k3d API server's container IP (when --bind-localhost=false)
   potentialClusterBindAddress="$(kubectl get "$(waitForNode)" \
@@ -149,22 +149,22 @@ function findClusterBindAddress() {
   localAddress="$(ip route get 1 | sed -n 's/^.*src \([0-9.]*\) .*$/\1/p')"
 
   # Check if we can use localhost instead of the external address
-  # This address is later printed on the welcome screen, where localhost is much more constant and intuitive as the 
+  # This address is later printed on the welcome screen, where localhost is much more constant and intuitive as the
   # the external address. Also Jenkins notifications only work on localhost, not external addresses.
   # Note that this will only work when executed as a script locally, or in a container with --net=host.
   # When executing via kubectl run, this will still output the potentialClusterBindAddress.
-  if [[ "${localAddress}" == "${potentialClusterBindAddress}" ]]; then 
-    echo "localhost" 
-  else 
+  if [[ "${localAddress}" == "${potentialClusterBindAddress}" ]]; then
+    echo "localhost"
+  else
     echo "${potentialClusterBindAddress}"
   fi
 }
 
 function waitForNode() {
-  # With TLDR command from readme "kubectl get node" might be executed right after cluster start, where no nodes are 
+  # With TLDR command from readme "kubectl get node" might be executed right after cluster start, where no nodes are
   # returned, resulting in 'error: the server doesn't have a resource type ""'
   local nodes=""
-  while [ -z ${nodes} ]; do
+  while [[ -z "${nodes}" ]]; do
     nodes=$(kubectl get node -oname)
     [ -z "${nodes}" ] && sleep 1
   done
@@ -339,7 +339,7 @@ function initArgo() {
   fi
 
   if [[ ${ARGOCD_CONFIG_ONLY} == false ]]; then
-    
+
     helm upgrade -i argocd --values "${VALUES_YAML_PATH}" \
       $(argoHelmSettingsForLocalCluster) --version ${ARGO_HELM_CHART_VERSION} argo/argo-cd -n argocd
 
@@ -845,7 +845,7 @@ readParameters() {
   ASSUME_YES=false
   SKIP_HELM_UPDATE=false
   ARGOCD_CONFIG_ONLY=false
-  
+
   while true; do
     case "$1" in
       -h | --help          ) printUsage; exit 0 ;;
